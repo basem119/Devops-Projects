@@ -16,15 +16,6 @@ jobs:
   deploy-infra:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug AWS credentials
-        run: |
-          echo "Bucket name length: ${#AWS_TF_STATE_BUCKET_NAME}"
-          echo "Bucket name is set: $([[ -n "$AWS_TF_STATE_BUCKET_NAME" ]] && echo "yes" || echo "no")"
-          echo "AWS_TF_STATE_BUCKET_NAME: $([[ -n '${{ secrets.AWS_TF_STATE_BUCKET_NAME }}' ]] && echo 'SET' || echo 'NOT SET')"
-          echo "First 5 chars: ${AWS_TF_STATE_BUCKET_NAME:0:5}..."
-          echo "Region: $AWS_REGION"
-        env:
-          AWS_TF_STATE_BUCKET_NAME: ${{ secrets.AWS_TF_STATE_BUCKET_NAME }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: setup Terraform
@@ -44,7 +35,7 @@ jobs:
           -var="private_key=$PRIVATE_SSH_KEY" \
           -var="key_name=deployer-key" \
           -out=PLAN 
-        working-directory: .\terraform
+        working-directory: ./terraform
       - name: terraform Apply
         id: apply 
         run: terraform apply PLAN
