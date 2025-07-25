@@ -23,7 +23,7 @@ jobs:
         with:
           terraform_wrapper: false
       - name: Check TF_STATE_BUCKET_NAME
-        run:  "TF_STATE_BUCKET_NAME is: $TF_STATE_BUCKET_NAME"
+        run:  echo "TF_STATE_BUCKET_NAME is:"" $TF_STATE_BUCKET_NAME
       - name: Terraform init
         id: init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET_NAME" -backend-config="region=eu-north-1"
