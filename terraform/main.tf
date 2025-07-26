@@ -13,7 +13,7 @@ provider "aws" {
   region = var.region
 }
 resource "aws_instance" "server" {
-  ami = "ami-052efd3df9dad4" #need to insure (ubuntu image) it's right from aws
+  ami = ami-0becc523130ac9d5d" #Ubuntu Server 22.04 LTS (HVM), SSD Volume Type
   instance_type = "t2.micro"
   key_name = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.maingroup.id]
