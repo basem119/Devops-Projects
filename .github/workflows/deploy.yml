@@ -43,14 +43,14 @@ jobs:
         run: terraform apply
         working-directory: ./terraform
       - name: Set output
-        id: set-ip
+        id: set-ip2
         working-directory: ./terraform
         run: |
           # extract the instance_public_ip from terraform state (works for sensitive outputs too)
           IP=$(terraform output -json | python -c 'import sys,json;print(json.load(sys.stdin)["instance_public_ip"]["value"])')
           echo "instance_public_ip=$IP" >> $GITHUB_OUTPUT
       - name: Set output
-        id: set-ip2
+        id: set-ip
         run: |-
           echo "::set-output name=instance_public_ip::$(terraform output instance_public_ip)"  
   deploy-app:
