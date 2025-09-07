@@ -49,6 +49,9 @@ jobs:
           IP=$(terraform output -raw instance_public_ip)
           echo "SERVER_PUBLIC_IP=$IP" >> $GITHUB_ENV
           echo "SERVER_PUBLIC_IP=$IP" >> $GITHUB_OUTPUT
+      - name: Debug Terraform Outputs
+        working-directory: ./terraform
+        run: terraform output
   deploy-app:
     runs-on: ubuntu-latest
     needs: deploy-infra
